@@ -54,9 +54,9 @@ def get_asset_allocation(riskTolerance,stock_ticker):
     return Alloc,returns_sum_pd
 
 # Define the Streamlit app
-st.title('Investment Advisor in the CAC40 stock market')
+st.title('Investment Advisor in the CAC40 stock market (by Josué AFOUDA)')
 
-st.header('Step 2: Asset Allocation and Portfolio Performance')
+st.subheader('Step 2: Asset Allocation and Portfolio Performance')
 st.sidebar.title('Step 1: Enter Investor Characteristics')
 
 # Investor Characteristics
