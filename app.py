@@ -8,7 +8,7 @@ from cvxopt import solvers
 
 investors = pd.read_csv('data/InputData.csv', index_col = 0)
 
-assets = pd.read_csv('data/SP500Data.csv',index_col=0)
+assets = pd.read_csv('data/CAC40Data.csv',index_col=0)
 missing_fractions = assets.isnull().mean().sort_values(ascending=False)
 drop_list = sorted(list(missing_fractions[missing_fractions > 0.3].index))
 assets.drop(labels=drop_list, axis=1, inplace=True)
@@ -61,8 +61,7 @@ st.sidebar.title('Step 1: Enter Investor Characteristics')
 
 # Investor Characteristics
 with st.sidebar:
-    st.subheader('Demographics Features')
-
+    
     age = st.slider('Age:', min_value=investors['AGE07'].min(), max_value=70, value=25)
     net_worth = st.slider('NetWorth:', min_value=-1000000, max_value=3000000, value=10000)
     income = st.slider('Income:', min_value=-1000000, max_value=3000000, value=100000)
@@ -82,7 +81,7 @@ with st.sidebar:
 risk_tolerance_text = st.text_input('Risk Tolerance (scale of 100):')
 selected_assets = st.multiselect('Select the assets for the portfolio:', 
                                  options=list(assets.columns), 
-                                 default=['GOOGL', 'FB', 'GS', 'MS', 'GE', 'MSFT'])
+                                 default=['AI.PA', 'AIR.PA', 'ALO.PA', 'MT.AS', 'CS.PA'])
 
 # Asset Allocation and Portfolio Performance
 
@@ -95,6 +94,6 @@ if st.button('Submit'):
     st.plotly_chart(fig_alloc)
 
     # Display Portfolio Performance chart
-    st.subheader('Portfolio value of $100 investment')
+    st.subheader('Portfolio value of €100 investment')
     fig_performance = px.line(returns_sum_pd, x=returns_sum_pd.index, y=returns_sum_pd.iloc[:, 0], labels={'index': 'Date', '0': 'Portfolio Value'})
     st.plotly_chart(fig_performance)
