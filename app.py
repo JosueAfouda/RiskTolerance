@@ -54,14 +54,14 @@ def get_asset_allocation(riskTolerance,stock_ticker):
     return Alloc,returns_sum_pd
 
 # Define the Streamlit app
-st.title('Robo Advisor Dashboard')
+st.title('Investment Advisor in the CAC40 stock market')
 
 st.header('Step 2: Asset Allocation and Portfolio Performance')
 st.sidebar.title('Step 1: Enter Investor Characteristics')
 
 # Investor Characteristics
 with st.sidebar:
-    
+
     age = st.slider('Age:', min_value=investors['AGE07'].min(), max_value=70, value=25)
     net_worth = st.slider('NetWorth:', min_value=-1000000, max_value=3000000, value=10000)
     income = st.slider('Income:', min_value=-1000000, max_value=3000000, value=100000)
@@ -81,7 +81,7 @@ with st.sidebar:
 risk_tolerance_text = st.text_input('Risk Tolerance (scale of 100):')
 selected_assets = st.multiselect('Select the assets for the portfolio:', 
                                  options=list(assets.columns), 
-                                 default=['AI.PA', 'AIR.PA', 'ALO.PA', 'MT.AS', 'CS.PA'])
+                                 default=['Air Liquide', 'Airbus', 'Alstom', 'AXA', 'BNP Paribas'])
 
 # Asset Allocation and Portfolio Performance
 
@@ -90,7 +90,8 @@ if st.button('Submit'):
 
     # Display Asset Allocation chart
     st.subheader('Asset Allocation: Mean-Variance Allocation')
-    fig_alloc = px.bar(Alloc, x=Alloc.index, y=Alloc.iloc[:, 0], labels={'index': 'Assets', '0': 'Allocation'})
+    fig_alloc = px.bar(Alloc, x=Alloc.index, y=Alloc.iloc[:, 0], 
+                       labels={'index': 'Assets', '0': 'Allocation'})
     st.plotly_chart(fig_alloc)
 
     # Display Portfolio Performance chart
